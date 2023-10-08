@@ -1,0 +1,3 @@
+#define SB_VERSION_MAJOR @strawberry_VERSION_MAJOR@
+#define SB_VERSION_MINOR @strawberry_VERSION_MINOR@
+#define SB_PROJECT_NAME "@PROJECT_NAME@"
