@@ -71,7 +71,7 @@ sb_code sb_socket_recieve(sb_socket* in_socket, sb_buffer* out_buffer) {
 	int read = 0;
 	
 	do {
-		read = recv(*in_socket, buffer, sizeof(buffer), NULL);
+		read = recv(*in_socket, buffer, sizeof(buffer), 0);
 
 		if (read == 0)
 			return SB_OK; /* Connection was closed */
@@ -99,7 +99,7 @@ sb_code sb_socket_send(sb_socket* in_socket, sb_buffer in_buffer) {
 		buffer[i] = (const char) byte;
 	}
 
-	if (send(*in_socket, (const char*) buffer, sizeof(buffer), NULL) < 0)
+	if (send(*in_socket, (const char*) buffer, sizeof(buffer), 0) < 0)
 		return SB_WRITE_ERROR;
 
 	return SB_OK;
