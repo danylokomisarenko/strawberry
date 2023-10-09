@@ -15,20 +15,24 @@ add_subdirectory("gateway")
 
 # Copy binaries
 set(GATEWAY_EXE_NAME)
+set(PKG_EXE_NAME)
 set(CORE_DLL_NAME)
 if(WIN32)
 	set(GATEWAY_EXE_NAME "sbgateway.exe")
+	set(PKG_EXE_NAME "sbpkg.exe")
 	set(CORE_DLL_NAME "sbcore.dll")
 else()
 	set(GATEWAY_EXE_NAME "sbgateway")
+	set(PKG_EXE_NAME "sbpkg")
 	set(CORE_DLL_NAME "libsbcore.so")
 endif()
 
 set(RUN_DIR "${CMAKE_SOURCE_DIR}/run")
 add_custom_target(copybinaries ALL
-    DEPENDS sbgateway sbcore
+    DEPENDS sbgateway sbpkg sbcore
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${RUN_DIR}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${RUN_DIR}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/gateway/${GATEWAY_EXE_NAME} ${RUN_DIR}/${GATEWAY_EXE_NAME}
+	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/pkg/${PKG_EXE_NAME} ${RUN_DIR}/${PKG_EXE_NAME}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/core/src/${CORE_DLL_NAME} ${RUN_DIR}/${CORE_DLL_NAME}
 )

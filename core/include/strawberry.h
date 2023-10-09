@@ -4,5 +4,6 @@
 #include "strawberry/socket.h"
 #include "strawberry/sbconf.h"
 #include "strawberry/common.h"
+#include "strawberry/console.h"
 
 #endif

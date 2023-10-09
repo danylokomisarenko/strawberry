@@ -31,6 +31,8 @@ typedef enum {
 	SB_BUFFER_UNDERFLOW = (-101),
 	SB_READ_ERROR = (-102),
 	SB_WRITE_ERROR = (-103),
+	SB_NOT_FOUND = (-104),
+	SB_REQUIRED = (-105),
 } sb_code;
 #define SB_DEF_EXTERN SB_EXTERN(sb_code)
 
