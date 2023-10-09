@@ -21,14 +21,14 @@ if(WIN32)
 	set(CORE_DLL_NAME "sbcore.dll")
 else()
 	set(GATEWAY_EXE_NAME "sbgateway")
-	set(CORE_DLL_NAME "liblibkeylime.so")
+	set(CORE_DLL_NAME "libsbcore.so")
 endif()
 
 set(RUN_DIR "${CMAKE_SOURCE_DIR}/run")
 add_custom_target(copybinaries ALL
-    DEPENDS sbgateway
+    DEPENDS sbgateway sbcore
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${RUN_DIR}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${RUN_DIR}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/gateway/${GATEWAY_EXE_NAME} ${RUN_DIR}/${GATEWAY_EXE_NAME}
-	#COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/src/${DLL_NAME} ${RUN_DIR}/${DLL_NAME}
+	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/core/src/${CORE_DLL_NAME} ${RUN_DIR}/${CORE_DLL_NAME}
 )
