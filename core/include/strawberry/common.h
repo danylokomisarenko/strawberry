@@ -27,6 +27,10 @@
 typedef enum {
 	SB_OK = (0),
 	SB_ERROR = (-1),
+	SB_BUFFER_OVERFLOW = (-100),
+	SB_BUFFER_UNDERFLOW = (-101),
+	SB_READ_ERROR = (-102),
+	SB_WRITE_ERROR = (-103),
 } sb_code;
 #define SB_DEF_EXTERN SB_EXTERN(sb_code)
 
