@@ -3,6 +3,7 @@
 
 #include <strawberry/socket.h>
 #include <strawberry/common.h>
+#include <strawberry/type.h>
 
 sb_code sb_socket_initialize() {
 #ifdef _WIN32
@@ -40,7 +41,9 @@ sb_code sb_socket_close(sb_socket in_socket) {
 	return SB_OK;
 }
 
-sb_code sb_socket_create(sb_socket* out_socket, char* port);
+sb_code sb_socket_create(sb_socket* out_socket, char* hostname, char* port);
 sb_code sb_socket_accept(sb_socket* in_socket, sb_connection* out_connection);
+sb_code sb_socket_recieve(sb_socket* in_socket, sb_buffer* out_buffer);
+sb_code sb_socket_send(sb_socket* in_socket, sb_buffer in_buffer);
 
 #endif

@@ -13,11 +13,10 @@ int main(int argc, char** argv) {
 		return error;
 	}
 
-	error = sb_socket_create(&socket, "7632");
+	error = sb_socket_create(&socket, "192.168.0.158", "7632");
 	if (error != SB_OK)
 		return error;
 
-	printf("listening on '7632'\n");
 	while (1) {
 		sb_connection connection;
 		error = sb_socket_accept(&socket, &connection);
@@ -25,6 +24,7 @@ int main(int argc, char** argv) {
 			continue;
 
 		printf("accepted connection!\n");
+		sb_socket_close(connection.far_sock);
 	}
 
 	sb_socket_cleanup();

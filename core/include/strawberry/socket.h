@@ -23,7 +23,7 @@ typedef struct {
 SB_DEF_EXTERN sb_socket_initialize();
 SB_DEF_EXTERN sb_socket_cleanup();
 SB_DEF_EXTERN sb_socket_close(sb_socket in_socket);
-SB_DEF_EXTERN sb_socket_create(sb_socket* out_socket, char* port);
+SB_DEF_EXTERN sb_socket_create(sb_socket* out_socket, char* hostname, char* port);
 SB_DEF_EXTERN sb_socket_accept(sb_socket* in_socket, sb_connection* out_connection);
 
 #endif
