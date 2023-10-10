@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project("strawberry" VERSION 0.1 LANGUAGES C)
 
-file(CREATE_LINK
-  "${CMAKE_BINARY_DIR}/compile_commands.json"
-  "${CMAKE_SOURCE_DIR}/compile_commands.json"
-  SYMBOLIC
-)
-
 set(SB_CORE_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/core/include")
 set(SB_CORE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/core/src")
 add_subdirectory("core")
@@ -26,6 +20,13 @@ else()
 	set(PKG_EXE_NAME "sbpkg")
 	set(CORE_DLL_NAME "libsbcore.so")
 endif()
+
+message(STATUS "Link '${CMAKE_BINARY_DIR}/compile_commands.json' to '${CMAKE_SOURCE_DIR}/compile_commands.json'")
+file(CREATE_LINK
+  "${CMAKE_BINARY_DIR}/compile_commands.json"
+  "${CMAKE_SOURCE_DIR}/compile_commands.json"
+  SYMBOLIC
+)
 
 set(RUN_DIR "${CMAKE_SOURCE_DIR}/run")
 add_custom_target(copybinaries ALL
