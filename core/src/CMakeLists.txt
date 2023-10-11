@@ -1,6 +1,7 @@
 include_directories("${SB_CORE_INCLUDE_DIR}")
 include_directories("${SB_CORE_SOURCE_DIR}")
 file(GLOB CORE_SOURCE CONFIGURE_DEPENDS "*.h" "*.c" "**\*.h" "**\*.c")
+message(STATUS "Building 'sbcore' with '${CORE_SOURCE}'")
 add_library(sbcore SHARED ${CORE_SOURCE})
 if(WIN32)
 	target_link_libraries(sbcore wsock32 ws2_32)

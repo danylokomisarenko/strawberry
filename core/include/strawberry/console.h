@@ -21,4 +21,7 @@ SB_EXTERN(void) sb_parameter_initialize_parser(sb_parameter_parser* parser, int 
 SB_EXTERN(void) sb_parameter_create(sb_parameter_parser* parser, char* name, char* default_value, int flag, int required);
 SB_DEF_EXTERN sb_parameter_get_value(sb_parameter_parser* parser, char** out, char* name);
 
+SB_EXTERN(void) sb_progress(int complete, int total, int length, int complete_color, char* complete_char, int left_color, char* left_char, char* suffix);
+SB_EXTERN(void) sb_progress_regular(int complete, int total, char* suffix);
+
 #endif
