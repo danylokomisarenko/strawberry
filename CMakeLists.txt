@@ -6,6 +6,7 @@ set(SB_CORE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/core/src")
 add_subdirectory("core")
 add_subdirectory("pkg")
 add_subdirectory("gateway")
+add_subdirectory("embedded")
 
 # Copy binaries
 set(GATEWAY_EXE_NAME)
@@ -21,7 +22,7 @@ else()
 	set(CORE_DLL_NAME "libsbcore.so")
 endif()
 
-message(STATUS "Link '${CMAKE_BINARY_DIR}/compile_commands.json' to '${CMAKE_SOURCE_DIR}/compile_commands.json'")
+message(STATUS "link '${CMAKE_BINARY_DIR}/compile_commands.json' to '${CMAKE_SOURCE_DIR}/compile_commands.json'")
 file(CREATE_LINK
   "${CMAKE_BINARY_DIR}/compile_commands.json"
   "${CMAKE_SOURCE_DIR}/compile_commands.json"
