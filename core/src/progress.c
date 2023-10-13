@@ -20,3 +20,25 @@ void sb_progress(int complete, int total, int length, int complete_color, char* 
 void sb_progress_regular(int complete, int total, char* suffix) {
 	sb_progress(complete, total, 50, 39, "━", 33, "-", "wasting your time");
 }
+
+void sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thread_progress* progresses) {
+	SB_FIX_UNICODE();
+	int running = 1;
+	while (running) {
+		for (int i = 0; i < count; i++) {
+			sb_thread_progress progress = progresses[i];
+			int percent = progress.total > 0 ? (100 * progress.complete) / progress.total : 0;
+			printf("%s [ ", percent == 100 ? "\x1B[38;5;46m✔\x1B[0m" : "\x1B[38;5;160m×\x1B[0m");
+			int length = 50;
+			for (int i = 0; i < length; i++) {
+				if (i < (length * percent) / 100) {
+					printf("\x1B[38;5;39m━");
+				} else {
+					printf("\x1B[38;5;33m-");
+				}
+			}
+			printf(" \x1B[0m] %%%i | %s\n", percent, progress.suffix);
+			fflush(stdout);
+		}
+	}
+}

@@ -27,6 +27,7 @@ set(ZLIB_INCLUDE_DIR "${ZLIB_DIR};${CMAKE_BINARY_DIR}/core/lib/zlib/")
 
 # Add zlib
 set(ZLIB_DIR "${CMAKE_CURRENT_LIST_DIR}/zlib")
+include_directories(${ZLIB_DIR})
 add_subdirectory(${ZLIB_DIR})
 target_include_directories(zlib PUBLIC "${ZLIB_INCLUDE_DIR}")
 message(STATUS "using bundled 'zlib' in '${ZLIB_DIR}'")

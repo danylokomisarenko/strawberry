@@ -34,7 +34,6 @@ file(CREATE_LINK
 set(RUN_DIR "${CMAKE_SOURCE_DIR}/run")
 add_custom_target(copybinaries ALL
     DEPENDS sbgateway sbpkg sbcore
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${RUN_DIR}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${RUN_DIR}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/gateway/${GATEWAY_EXE_NAME} ${RUN_DIR}/${GATEWAY_EXE_NAME}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/pkg/${PKG_EXE_NAME} ${RUN_DIR}/${PKG_EXE_NAME}
