@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project("strawberry" VERSION 0.1 LANGUAGES C)
 
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
 set(SB_CORE_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/core/include")
 set(SB_CORE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/core/src")
 add_subdirectory("core")

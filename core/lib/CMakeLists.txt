@@ -32,6 +32,8 @@ target_include_directories(zlib PUBLIC "${ZLIB_INCLUDE_DIR}")
 message(STATUS "using bundled 'zlib' in '${ZLIB_DIR}'")
 
 # Add curl
+find_package(KernelHeaders REQUIRED)
+include_directories(${KERNELHEADERS_INCLUDE_DIRS})
 set(CURL_DIR "${CMAKE_CURRENT_LIST_DIR}/curl")
 set(BUILD_CURL_EXE OFF)
 set(CURL_USE_SCHANNEL ON)
