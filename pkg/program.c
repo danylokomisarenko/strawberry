@@ -76,9 +76,9 @@ sb_code source_config(char config_script[FILENAME_MAX]) {
 
 WINAPI DWORD hoisted_sync_package(void* progress) {
 	sb_package_progress* info = (sb_package_progress*) progress;
-	for (int i = 0; i <= 100; i++) {
+	for (int i = 0; i <= 20 * (info->index + 1); i++) {
 		info->progress.complete = i;
-		info->progress.total = 100;
+		info->progress.total = 20 * (info->index + 1);
 		info->progress.suffix = "wasting your time";
 		sb_sleep(250);
 	}
