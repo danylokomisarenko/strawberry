@@ -23,8 +23,9 @@ void sb_progress_regular(int complete, int total, char* suffix) {
 
 void sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thread_progress* progresses) {
 	SB_FIX_UNICODE();
-	int running = 1;
-	while (running) {
+	int done = 0;
+	int complete;
+	while (!done) {
 		for (int i = 0; i < count; i++) {
 			sb_thread_progress progress = progresses[i];
 			int percent = progress.total > 0 ? (100 * progress.complete) / progress.total : 0;
@@ -38,8 +39,16 @@ void sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thre
 				}
 			}
 			printf(" \x1B[0m] %%%i | %s\n", percent, progress.suffix);
+
+			if (progress.complete == progress.total)
+				complete++;
+
+			if (complete == count)
+				done = 1;
 		}
-		printf("\x1B[%iF", count);
+
+		if (!done)
+			printf("\x1B[%iF", count);
 	}
 	printf("Done!\n");
 }
