@@ -114,7 +114,6 @@ int main(int argc, char** argv) {
 		sb_thread_progress progresses[packages.index];
 		for (int i = 0; i < packages.index; i++) {
 			sb_package package = packages.packages[i];
-			printf("using '%s'\n", package.name);
 
 			sb_thread_progress progress;
 			progress.complete = 0;

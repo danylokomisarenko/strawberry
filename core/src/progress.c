@@ -38,7 +38,8 @@ void sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thre
 				}
 			}
 			printf(" \x1B[0m] %%%i | %s\n", percent, progress.suffix);
-			fflush(stdout);
 		}
+		printf("\x1B[%iF", count);
 	}
+	printf("Done!\n");
 }
