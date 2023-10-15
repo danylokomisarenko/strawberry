@@ -126,13 +126,6 @@ int main(int argc, char** argv) {
 			sb_package_progress package_progress;
 			package_progress.index = i;
 			package_progress.package = &packages.packages[i];
-
-			sb_thread_progress progress;
-			progress.complete = 0;
-			progress.total = 0;
-			progress.suffix = "";
-			package_progress.progress = progress;
-
 			progresses[i] = package_progress;
 
 			threads[i] = CreateThread(NULL, 0, hoisted_sync_package, (void*) &progresses[i], 0, &thread_ids[i]);
