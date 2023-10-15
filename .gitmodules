@@ -1,15 +1,15 @@
-[submodule "core/lib/lua"]
-	path = core/lib/lua
+[submodule "lib/lua"]
+	path = lib/lua
 	url = https://github.com/lua/lua
-[submodule "core/lib/zlib"]
-	path = core/lib/zlib
+[submodule "lib/zlib"]
+	path = lib/zlib
 	url = https://github.com/madler/zlib
-[submodule "core/lib/curl"]
-	path = core/lib/curl
+[submodule "lib/curl"]
+	path = lib/curl
 	url = https://github.com/curl/curl
-[submodule "core/lib/parson"]
-	path = core/lib/parson
+[submodule "lib/parson"]
+	path = lib/parson
 	url = https://github.com/kgabis/parson
-[submodule "core/lib/git"]
-	path = core/lib/git
+[submodule "lib/git"]
+	path = lib/git
 	url = https://github.com/libgit2/libgit2
