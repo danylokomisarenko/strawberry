@@ -132,9 +132,8 @@ int main(int argc, char** argv) {
 		}
 
 		sb_thread_progress* thread_progresses[count];
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
 			thread_progresses[i] = &progresses[i].progress;
-		}
 		sb_progress_threaded(count, thread_ids, threads, thread_progresses);
 	}
 
