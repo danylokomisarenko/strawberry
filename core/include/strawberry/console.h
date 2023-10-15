@@ -30,6 +30,6 @@ typedef struct {
 	char* suffix;
 } sb_thread_progress;
 
-SB_EXTERN(void) sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thread_progress* progresses);
+SB_EXTERN(void) sb_progress_threaded(int count, DWORD* thread_ids, HANDLE* threads, sb_thread_progress** progresses);
 
 #endif

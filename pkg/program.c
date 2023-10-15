@@ -19,6 +19,12 @@ typedef struct {
 } sb_packages;
 static sb_packages packages;
 
+typedef struct {
+	int index;
+	sb_package* package;
+	sb_thread_progress progress;
+} sb_package_progress;
+
 int lua_use_package(lua_State* state) {
 	lua_settop(state, 1);
 	luaL_checktype(state, 1, LUA_TTABLE);
@@ -69,11 +75,11 @@ sb_code source_config(char config_script[FILENAME_MAX]) {
 }
 
 WINAPI DWORD hoisted_sync_package(void* progress) {
-	sb_thread_progress* info = (sb_thread_progress*) progress;
+	sb_package_progress* info = (sb_package_progress*) progress;
 	for (int i = 0; i <= 100; i++) {
-		info->complete = i;
-		info->total = 100;
-		info->suffix = "wasting your time";
+		info->progress.complete = i;
+		info->progress.total = 100;
+		info->progress.suffix = "wasting your time";
 		sb_sleep(250);
 	}
 	return 1;
@@ -112,22 +118,31 @@ int main(int argc, char** argv) {
 	char* should_sync; sb_parameter_get_value(&parser, &should_sync, "sync");
 	if (strcmp(should_sync, "true") == SB_OK) {
 		printf("syncing packages\n");
-		DWORD thread_ids[packages.index];
-		HANDLE threads[packages.index];
-		sb_thread_progress progresses[packages.index];
-		for (int i = 0; i < packages.index; i++) {
-			sb_package package = packages.packages[i];
+		int count = packages.index;
+		DWORD thread_ids[count];
+		HANDLE threads[count];
+		sb_package_progress progresses[count];
+		for (int i = 0; i < count; i++) {
+			sb_package_progress package_progress;
+			package_progress.index = i;
+			package_progress.package = &packages.packages[i];
 
 			sb_thread_progress progress;
 			progress.complete = 0;
 			progress.total = 0;
 			progress.suffix = "";
-			progresses[i] = progress;
+			package_progress.progress = progress;
+
+			progresses[i] = package_progress;
 
 			threads[i] = CreateThread(NULL, 0, hoisted_sync_package, (void*) &progresses[i], 0, &thread_ids[i]);
 		}
 
-		sb_progress_threaded(packages.index, thread_ids, threads, progresses);
+		sb_thread_progress* thread_progresses[count];
+		for (int i = 0; i < count; i++) {
+			thread_progresses[i] = &progresses[i].progress;
+		}
+		sb_progress_threaded(count, thread_ids, threads, thread_progresses);
 	}
 
 	return error;
