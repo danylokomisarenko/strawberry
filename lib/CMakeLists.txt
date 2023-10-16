@@ -1,29 +1,24 @@
-macro(update_submodules)
-	# Update Submodules
-	find_package(Git QUIET)
-	if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
-		message(STATUS "updating submodules")
-		execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-			RESULT_VARIABLE GIT_SUBMOD_RESULT)
-		if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-			message(FATAL_ERROR "git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
-		endif()
+# Update Submodules
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+	message(STATUS "updating submodules")
+	execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		RESULT_VARIABLE GIT_SUBMOD_RESULT)
+	if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+		message(FATAL_ERROR "git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
 	endif()
-endmacro()
-
-# Add libraries
-update_submodules()
+endif()
 
 set(BUILD_SHARED_LIBS OFF)
 set(BUILD_STATIC_LIBS ON)
 
 if(WIN32)
-	set(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/core/lib/zlib/zlib.lib")
+	set(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/lib/zlib/zlib.lib")
 else()
-	set(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/core/lib/zlib/libz.so")
+	set(ZLIB_LIBRARY "${CMAKE_BINARY_DIR}/lib/zlib/libz.so")
 endif()
-set(ZLIB_INCLUDE_DIR "${ZLIB_DIR};${CMAKE_BINARY_DIR}/core/lib/zlib/")
+set(ZLIB_INCLUDE_DIR "${ZLIB_DIR};${CMAKE_BINARY_DIR}/lib/zlib/")
 
 # Add zlib
 set(ZLIB_DIR "${CMAKE_CURRENT_LIST_DIR}/zlib")
@@ -42,14 +37,6 @@ set(SSL_ENABLED ON)
 set(HTTP_ONLY ON)
 add_subdirectory(${CURL_DIR})
 message(STATUS "using bundled 'curl' in '${CURL_DIR}'")
-
-# Add git
-set(GIT_DIR "${CMAKE_CURRENT_LIST_DIR}/git")
-set(BUILD_TESTS OFF)
-set(BUILD_CLI OFF)
-add_subdirectory(${GIT_DIR})
-target_include_directories(libgit2package PUBLIC "${GIT_DIR}/include")
-message(STATUS "using bundled 'git' in '${GIT_DIR}'")
 
 # Add parson
 set(PARSON_DIR "${CMAKE_CURRENT_LIST_DIR}/parson")
